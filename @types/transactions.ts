@@ -17,9 +17,29 @@ export type Crypto = {
 export type Transaction = {
   id: string;
   creationDate: Date;
-  payDate: Date;
+  payDate?: Date;
   state: StateEnum;
   payedToId: string;
   fiat: FIAT;
   crypto: Crypto;
+};
+
+export type CryptoRaw = {
+  amount: string;
+  currency: CryptoEnum;
+};
+
+export type FIATRaw = {
+  amount: string;
+  currency: FIATEnum;
+};
+
+export type TransactionRaw = {
+  id: string;
+  creationDate: string;
+  payDate?: string;
+  state: string;
+  payedToId: string;
+  fiat: FIATRaw;
+  crypto: CryptoRaw;
 };
