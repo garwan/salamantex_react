@@ -1,17 +1,20 @@
-import { Container, styled } from '@mui/material'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { CustomizedContainer } from '../components/Base/CustomizedContainer'
+import Transaction from '../components/Transaction/Transaction'
 
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
+    <div >
       <Head>
         <title>Frontend Assignment</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <CustomizedContainer>
+        <Transaction />
+      </CustomizedContainer>
     </div>
   )
 }
