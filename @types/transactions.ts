@@ -15,13 +15,21 @@ export type Crypto = {
 };
 
 export type Transaction = {
-  id: string;
-  creationDate: Date;
+  id?: string;
+  creationDate: Date | string;
   payDate?: Date;
   state: StateEnum;
   payedToId: string;
   fiat: FIAT;
   crypto: Crypto;
+  stateColor?:
+    | "default"
+    | "primary"
+    | "secondary"
+    | "error"
+    | "info"
+    | "success"
+    | "warning";
 };
 
 export type CryptoRaw = {

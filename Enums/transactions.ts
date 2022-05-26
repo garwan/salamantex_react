@@ -1,3 +1,5 @@
+import { red } from "@mui/material/colors";
+
 export enum FIAT {
   FC_EURO = "EURO",
   FC_USDOLLAR = "USDOLLAR",
@@ -14,4 +16,9 @@ export enum State {
   PS_ABORTED = "ABORTED",
   PS_RUNNING = "RUNNING",
   PS_FINISHED = "FINISHED",
+}
+export enum StateColor {
+  PS_ABORTED = "error",
+  PS_RUNNING = "primary",
+  PS_FINISHED = "success",
 }

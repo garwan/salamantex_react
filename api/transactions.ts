@@ -1,5 +1,5 @@
 import { Transaction, TransactionRaw } from "../@types";
-import { FIAT, State, Crypto } from "../Enums";
+import { FIAT, State, Crypto, StateColor } from "../Enums";
 
 export const TransactionAPI = {
   loadTransaction: async () => {
@@ -25,6 +25,7 @@ export const TransactionAPI = {
         payDate: transaction.payDate
           ? new Date(transaction.payDate)
           : undefined,
+        stateColor: (StateColor as any)[transaction.state],
       });
     });
 
