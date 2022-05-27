@@ -1,17 +1,13 @@
-import {
-  FIAT as FIATEnum,
-  Crypto as CryptoEnum,
-  State as StateEnum,
-} from "../Enums";
+import { FIATType, CryptoType, State as StateEnum } from "../Enums";
 
 export type FIAT = {
   amount: string;
-  currency: FIATEnum;
+  currency: FIATType;
 };
 
 export type Crypto = {
   amount: string;
-  currency: CryptoEnum;
+  currency: CryptoType;
 };
 
 export type Transaction = {
@@ -34,16 +30,16 @@ export type Transaction = {
 
 export type CryptoRaw = {
   amount: string;
-  currency: CryptoEnum;
+  currency: CryptoType;
 };
 
 export type FIATRaw = {
   amount: string;
-  currency: FIATEnum;
+  currency: FIATType;
 };
 
 export type TransactionRaw = {
-  id: string;
+  id?: string;
   creationDate: string;
   payDate?: string;
   state: string;
