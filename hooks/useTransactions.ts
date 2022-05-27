@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Transaction } from "../@types";
+import { Crypto, FIAT, Transaction, TransactionRaw } from "../@types";
 import { TransactionAPI } from "../api/transactions";
-import { State } from "../Enums";
+import {
+  Crypto as CryptoEnum,
+  FIAT as FIATEnum,
+  State,
+  StateColor,
+  StateType,
+} from "../Enums";
 
 export const useTransactions = () => {
   const [isLoading, setIsloading] = useState(true);
@@ -14,11 +20,24 @@ export const useTransactions = () => {
     );
   };
 
-  const addNewTransaction = (transaction: Transaction) => {
+  const addNewTransaction = (transaction: TransactionRaw) => {
+    const crypto: Crypto = {
+      ...transaction.crypto,
+      currency: (CryptoEnum as any)[transaction.crypto.currency],
+    };
+    const fiat: FIAT = {
+      ...transaction.fiat,
+      currency: (FIATEnum as any)[transaction.fiat.currency],
+    };
     transaction_data.push({
       ...transaction,
-      creationDate: new Date().toISOString(),
+      id: "123456",
+      crypto: crypto,
+      fiat: fiat,
+      creationDate: new Date(),
       state: State.PS_RUNNING,
+      stateColor: (StateColor as any)[StateType.PS_RUNNING],
+      payDate: undefined,
     });
   };
 

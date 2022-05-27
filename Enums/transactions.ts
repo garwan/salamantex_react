@@ -34,6 +34,12 @@ export enum CryptoSymbol {
   CC_DASH = "DASH",
 }
 
+export enum StateType {
+  PS_ABORTED = "PS_ABORTED",
+  PS_RUNNING = "PS_RUNNING",
+  PS_FINISHED = "PS_FINISHED",
+}
+
 export enum State {
   PS_ABORTED = "ABORTED",
   PS_RUNNING = "RUNNING",
