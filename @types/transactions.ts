@@ -12,7 +12,7 @@ export type Crypto = {
 
 export type Transaction = {
   id?: string;
-  creationDate: Date | string;
+  creationDate: Date;
   payDate?: Date;
   state: StateEnum;
   payedToId: string;

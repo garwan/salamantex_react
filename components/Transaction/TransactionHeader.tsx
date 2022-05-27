@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import { Grid, Typography } from "@mui/material"
-import { Transaction } from "../../@types"
+import { Transaction, TransactionRaw } from "../../@types"
 import TransactionActions from "./TransactionActions"
 
 const HeaderTypography = styled(Typography)`
@@ -14,10 +14,9 @@ const GridItemActions = styled(Grid)`
 `
 
 type TransactionHeader = {
-    removeTransaction: (t: Transaction) => void
-    addNewTransaction: (t: Transaction) => void
+    addNewTransaction: (t: TransactionRaw) => void
 }
-const TransactionHeader = ({ removeTransaction, addNewTransaction }: TransactionHeader) => {
+const TransactionHeader = ({ addNewTransaction }: TransactionHeader) => {
     return (
         <Grid container>
             <Grid item xs={8}>
@@ -26,7 +25,7 @@ const TransactionHeader = ({ removeTransaction, addNewTransaction }: Transaction
                 </HeaderTypography>
             </Grid>
             <GridItemActions item xs={4}>
-                <TransactionActions addNewTransaction={addNewTransaction} removeTransaction={removeTransaction} />
+                <TransactionActions addNewTransaction={addNewTransaction} />
             </GridItemActions>
         </Grid>
     )

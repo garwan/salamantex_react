@@ -20,8 +20,10 @@ const BodyTableRow = styled(TableRow)`
 type TransactionBodyMobile = {
     transactions: Transaction[]
     loading: boolean
+    removeTransaction: (t: Transaction) => void
+    reloadTransactions: boolean
 }
-const TransactionBodyMobile = ({ transactions, loading }: TransactionBodyMobile) => {
+const TransactionBodyMobile = ({ transactions, loading, removeTransaction, reloadTransactions }: TransactionBodyMobile) => {
     const [rowsPerPage, setRowsPerPage] = useState(10)
     const [page, setPage] = useState(0)
     const [selected, setSelected] = useState<Transaction[]>(transactions
@@ -39,7 +41,7 @@ const TransactionBodyMobile = ({ transactions, loading }: TransactionBodyMobile)
     useEffect(() => {
         setSelected(transactions
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage));
-    }, [page, rowsPerPage, transactions])
+    }, [page, rowsPerPage, transactions, reloadTransactions])
 
     return (
         <Paper>

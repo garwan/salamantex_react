@@ -4,10 +4,12 @@ import TransactionBodyDesktop from "./TransactionBodyDesktop";
 type TransactionBody = {
     transactions: Transaction[]
     loading: boolean
+    removeTransaction: (t: Transaction) => void
+    reloadTransactions: boolean
 }
-const TransactionBody = ({ transactions, loading }: TransactionBody) => {
+const TransactionBody = ({ reloadTransactions, transactions, loading, removeTransaction }: TransactionBody) => {
     return (
-        <TransactionBodyDesktop transactions={transactions} loading={loading} />
+        <TransactionBodyDesktop reloadTransactions={reloadTransactions} transactions={transactions} loading={loading} removeTransaction={removeTransaction} />
     )
 }
 

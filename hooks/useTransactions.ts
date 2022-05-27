@@ -8,16 +8,19 @@ import {
   StateColor,
   StateType,
 } from "../Enums";
+import { generateTransactionId } from "../utils/helpers";
 
 export const useTransactions = () => {
   const [isLoading, setIsloading] = useState(true);
   const [transaction_data, setTransactionData] = useState<Transaction[]>([]);
+  const [reloadTransactions, setReloadTransactions] = useState(false);
 
   const removeTransaction = (transaction: Transaction) => {
     transaction_data.splice(
       transaction_data.findIndex((t: Transaction) => t === transaction),
       1
     );
+    setReloadTransactions((old) => !old);
   };
 
   const addNewTransaction = (transaction: TransactionRaw) => {
@@ -31,7 +34,7 @@ export const useTransactions = () => {
     };
     transaction_data.push({
       ...transaction,
-      id: "123456",
+      id: generateTransactionId(),
       crypto: crypto,
       fiat: fiat,
       creationDate: new Date(),
@@ -39,6 +42,7 @@ export const useTransactions = () => {
       stateColor: (StateColor as any)[StateType.PS_RUNNING],
       payDate: undefined,
     });
+    setReloadTransactions((old) => !old);
   };
 
   useEffect(() => {
@@ -50,5 +54,11 @@ export const useTransactions = () => {
     loadTransactionData();
   }, []);
 
-  return { transaction_data, isLoading, addNewTransaction, removeTransaction };
+  return {
+    transaction_data,
+    isLoading,
+    addNewTransaction,
+    removeTransaction,
+    reloadTransactions,
+  };
 };
