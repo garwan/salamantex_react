@@ -1,14 +1,26 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import priceData from "../../data/prices.json";
-import { CryptoToFiat } from "../../hooks/usePrices";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  const crypto_symbol = req.query.crypto_symbol;
-  const fiat_symbol = req.query.fiat_symbol;
+  let {
+    query: { crypto_symbol: crypto_symbol_raw, fiat_symbol: fiat_symbol_raw },
+  } = req;
+
+  let crypto_symbol: string = "";
+  let fiat_symbol: string = "";
+
+  if (typeof crypto_symbol_raw !== "string") {
+    crypto_symbol = crypto_symbol_raw.toString();
+  }
+
+  if (typeof fiat_symbol_raw !== "string") {
+    fiat_symbol = fiat_symbol_raw.toString();
+  }
+
   let prices: any = [];
   prices = priceData;
 
