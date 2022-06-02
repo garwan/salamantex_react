@@ -1,8 +1,8 @@
 import { FormControl, Grid, MenuItem, TextField } from "@mui/material"
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { TransactionRaw } from "../../../@types"
 import { } from "../../../api/prices"
-import { FIATSymbol, FIATType } from "../../../Enums"
+import { FIATSymbol, FIATType, TransactionErrors } from "../../../Enums"
 
 type TransactionFormFiat = {
     transaction: TransactionRaw
@@ -11,6 +11,9 @@ type TransactionFormFiat = {
     setRecalculate: Dispatch<SetStateAction<boolean>>
 }
 const TransactionFormFiat = ({ transaction, setTransaction, exchangeFiat, setRecalculate }: TransactionFormFiat) => {
+    const [hasError, setHasError] = useState(false)
+    const [error, setError] = useState<string | undefined>()
+    const { errors } = transaction
 
     const fiatCurrencies = Object.values(FIATType);
 
@@ -32,6 +35,14 @@ const TransactionFormFiat = ({ transaction, setTransaction, exchangeFiat, setRec
         })
     }
 
+    useEffect(() => {
+        setError(errors?.fiat?.amount ?? undefined)
+    }, [errors])
+
+    useEffect(() => {
+        setHasError(Boolean(error))
+    }, [error])
+
     return (
         <Grid container>
             <Grid item >
@@ -40,7 +51,9 @@ const TransactionFormFiat = ({ transaction, setTransaction, exchangeFiat, setRec
                         id="fiat-amount"
                         label="FIAT amount"
                         disabled={exchangeFiat}
-                        type="text"
+                        type="number"
+                        error={hasError}
+                        helperText={error}
                         onChange={handleFIATAmount}
                         value={transaction.fiat.amount}
                         fullWidth

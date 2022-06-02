@@ -46,4 +46,5 @@ export type TransactionRaw = {
   payedToId: string;
   fiat: FIATRaw;
   crypto: CryptoRaw;
+  errors?: any;
 };

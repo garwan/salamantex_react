@@ -19,8 +19,6 @@ export default async function handler(
       ? fiat_symbol_raw.toString()
       : fiat_symbol_raw;
 
-  console.log(`crypto_symbol ${crypto_symbol} | fiat_symbol ${fiat_symbol}`);
-
   let prices: any = [];
   prices = priceData;
 
@@ -47,7 +45,6 @@ export default async function handler(
       return res.status(200).json({ prices: prices });
     })
     .catch((error) => {
-      console.log("error", error);
       return res.status(500).send(JSON.stringify(priceData));
     });
 }

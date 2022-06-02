@@ -1,7 +1,7 @@
 import { FormControl, Grid, MenuItem, TextField } from "@mui/material"
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { TransactionRaw } from "../../../@types"
-import { CryptoSymbol, CryptoType, } from "../../../Enums"
+import { CryptoSymbol, CryptoType, TransactionErrors, } from "../../../Enums"
 
 type TransactionFormCrypto = {
     transaction: TransactionRaw
@@ -10,6 +10,9 @@ type TransactionFormCrypto = {
     setRecalculate: Dispatch<SetStateAction<boolean>>
 }
 const TransactionFormCrypto = ({ transaction, setTransaction, exchangeFiat, setRecalculate }: TransactionFormCrypto) => {
+    const [hasError, setHasError] = useState(false)
+    const [error, setError] = useState<string | undefined>()
+    const { errors } = transaction
 
     const cryptoCurrencies = Object.values(CryptoType);
 
@@ -32,6 +35,14 @@ const TransactionFormCrypto = ({ transaction, setTransaction, exchangeFiat, setR
         })
     }
 
+    useEffect(() => {
+        setError(errors?.crypto?.amount ?? undefined)
+    }, [errors])
+
+    useEffect(() => {
+        setHasError(Boolean(error))
+    }, [error])
+
     return (
         <Grid container>
             <Grid item>
@@ -40,7 +51,9 @@ const TransactionFormCrypto = ({ transaction, setTransaction, exchangeFiat, setR
                         id="crypto-amount"
                         label="Crypto amount"
                         disabled={!exchangeFiat}
-                        type="text"
+                        error={hasError}
+                        helperText={error}
+                        type="number"
                         onChange={handleCryptoAmount}
                         value={transaction.crypto.amount}
                         fullWidth

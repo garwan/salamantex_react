@@ -7,7 +7,7 @@ import TransactionFormPaidTo from "./TransactionFormPaidTo"
 
 type TransactionHeader = {
     transaction: TransactionRaw
-    setTransaction: Dispatch<SetStateAction<TransactionRaw>>
+    setTransaction: (transaction: TransactionRaw) => void
 }
 const TransactionForm = ({ transaction, setTransaction }: TransactionHeader) => {
 

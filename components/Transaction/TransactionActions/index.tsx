@@ -1,7 +1,8 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material"
 import { useState } from "react"
 import { Transaction, TransactionRaw } from "../../../@types"
-import { CryptoType, FIATType, State } from "../../../Enums"
+import { CryptoType, FIATType, State, TransactionErrors } from "../../../Enums"
+import { validateTransaction } from "../../../utils/validations/transaction"
 import TransactionForm from "./TransactionForm"
 
 const newTransaction: TransactionRaw = {
@@ -30,7 +31,17 @@ const TransactionActions = ({ addNewTransaction }: TransactionHeader) => {
         setShowInput(old => !old)
     }
 
+    const handleRawTransaction = (transaction: TransactionRaw) => {
+        setTransaction(
+            validateTransaction(transaction)
+        );
+    }
+
     const handleSaveNewTransaction = () => {
+        if (Object.keys(transaction.errors).length > 0) {
+            return
+        }
+
         addNewTransaction(transaction);
         toggleInput()
         setTransaction(newTransaction)
@@ -47,7 +58,7 @@ const TransactionActions = ({ addNewTransaction }: TransactionHeader) => {
 
                     <TransactionForm
                         transaction={transaction}
-                        setTransaction={setTransaction}
+                        setTransaction={handleRawTransaction}
                     />
                 </DialogContent>
                 <DialogActions>
