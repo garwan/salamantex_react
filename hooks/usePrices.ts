@@ -3,6 +3,7 @@ import { PriceAPI } from "../api/prices";
 import { CryptoSymbol, CryptoType, FIATSymbol, FIATType } from "../Enums";
 import priceData from "../data/prices.json";
 import { formatNumber } from "../utils/helpers";
+import { CryptoRaw, FIATRaw } from "../@types";
 
 type Price = {
   price: string;
@@ -13,13 +14,13 @@ type FIATPrice = Record<string, Price>;
 export type CryptoToFiat = Record<string, FIATPrice>;
 
 type loadPrice = {
-  crypto: CryptoType;
-  fiat: FIATType;
+  crypto: string;
+  fiat: string;
 };
 
 type calcFiatPrice = {
-  crypto: CryptoType;
-  fiat: FIATType;
+  crypto: string;
+  fiat: string;
   amount: number | string;
 };
 
@@ -37,8 +38,10 @@ export const usePrices = () => {
   };
 
   const calcFiatPrice = ({ crypto, fiat, amount }: calcFiatPrice) => {
-    const crypto_symbol = (CryptoSymbol as any)[crypto];
-    const fiat_symbol = (FIATSymbol as any)[fiat];
+    const crypto_symbol = (CryptoSymbol as any)[
+      crypto as unknown as CryptoType
+    ];
+    const fiat_symbol = (FIATSymbol as any)[fiat as unknown as FIATType];
 
     if (!prices[crypto_symbol] || !prices[crypto_symbol][fiat_symbol]) {
       return formatNumber(Number(amount));
@@ -48,8 +51,10 @@ export const usePrices = () => {
   };
 
   const calcCryptoPrice = ({ crypto, fiat, amount }: calcFiatPrice) => {
-    const crypto_symbol = (CryptoSymbol as any)[crypto];
-    const fiat_symbol = (FIATSymbol as any)[fiat];
+    const crypto_symbol = (CryptoSymbol as any)[
+      crypto as unknown as CryptoType
+    ];
+    const fiat_symbol = (FIATSymbol as any)[fiat as unknown as FIATType];
     if (!prices[crypto_symbol] || !prices[crypto_symbol][fiat_symbol]) {
       return formatNumber(Number(amount));
     }
