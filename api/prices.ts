@@ -12,7 +12,7 @@ export const PriceAPI = {
     const fiat_symbol = (FIATSymbol as any)[fiat as unknown as FIATType];
 
     const rawData = await fetch(
-      `http://localhost:3000/api/price?crypto_symbol=${crypto_symbol}&fiat_symbol=${fiat_symbol}`
+      `https://salamantex-react.herokuapp.com/api/price?crypto_symbol=${crypto_symbol}&fiat_symbol=${fiat_symbol}`
     ).then((response) => response.json());
 
     return rawData;
