@@ -3,9 +3,9 @@ import { FIAT, State, Crypto, StateColor } from "../Enums";
 
 export const TransactionAPI = {
   loadTransaction: async () => {
-    const rawData = await fetch(`http://localhost:3000/api/transactions`).then(
-      (response) => response.json()
-    );
+    const rawData = await fetch(
+      `https://salamantex-react.herokuapp.com/api/transactions`
+    ).then((response) => response.json());
 
     const transaction_data: Transaction[] = [];
 
