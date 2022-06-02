@@ -30,12 +30,12 @@ export type Transaction = {
 
 export type CryptoRaw = {
   amount: string;
-  currency: CryptoType;
+  currency: string;
 };
 
 export type FIATRaw = {
   amount: string;
-  currency: FIATType;
+  currency: string;
 };
 
 export type TransactionRaw = {
