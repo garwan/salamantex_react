@@ -6,20 +6,20 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  let {
-    query: { crypto_symbol: crypto_symbol_raw, fiat_symbol: fiat_symbol_raw },
-  } = req;
+  const crypto_symbol_raw = req.query.crypto_symbol;
+  const fiat_symbol_raw = req.query.fiat_symbol;
 
-  let crypto_symbol: string = "";
-  let fiat_symbol: string = "";
+  let crypto_symbol: string =
+    typeof crypto_symbol_raw !== "string"
+      ? crypto_symbol_raw.toString()
+      : crypto_symbol_raw;
 
-  if (typeof crypto_symbol_raw !== "string") {
-    crypto_symbol = crypto_symbol_raw.toString();
-  }
+  let fiat_symbol: string =
+    typeof fiat_symbol_raw !== "string"
+      ? fiat_symbol_raw.toString()
+      : fiat_symbol_raw;
 
-  if (typeof fiat_symbol_raw !== "string") {
-    fiat_symbol = fiat_symbol_raw.toString();
-  }
+  console.log(`crypto_symbol ${crypto_symbol} | fiat_symbol ${fiat_symbol}`);
 
   let prices: any = [];
   prices = priceData;
